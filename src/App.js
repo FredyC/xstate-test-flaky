@@ -5,9 +5,9 @@ import { useMachineSwitch } from "./useMachineSwitch";
 import { createSimpleSuspense } from "./suspense";
 
 const appMachine = Machine({
-  initial: "idle",
+  initial: "welcome",
   states: {
-    idle: {
+    welcome: {
       on: {
         NEXT: "step1",
       },
@@ -15,21 +15,27 @@ const appMachine = Machine({
     step1: {
       on: {
         NEXT: "step2",
+        BACK: "welcome",
       },
     },
     step2: {
       on: {
         NEXT: "finish",
+        BACK: "step1",
       },
     },
-    finish: { type: "final" },
+    finish: {
+      on: {
+        BACK: "step2",
+      },
+    },
   },
 });
 
 export default function App() {
   const [current, send] = useMachine(appMachine);
   const step = useMachineSwitch(current, {
-    idle: () => <DelayedIdle />,
+    welcome: () => <DelayedWelcome />,
     step1: () => <div>Step 1</div>,
     step2: () => <div>Step 2</div>,
     finish: () => <div>Big finale</div>,
@@ -37,7 +43,16 @@ export default function App() {
   return (
     <div style={{ margin: "auto", marginTop: "10rem", maxWidth: "20rem" }}>
       <Suspense fallback={<h1>Loading...</h1>}>
-        <button onClick={() => send("NEXT")} disabled={current.done}>
+        <button
+          onClick={() => send("BACK")}
+          disabled={current.matches("welcome")}
+        >
+          Back
+        </button>
+        <button
+          onClick={() => send("NEXT")}
+          disabled={current.matches("finish")}
+        >
           Next
         </button>
         <hr />
@@ -47,11 +62,11 @@ export default function App() {
   );
 }
 
-const idleDelay = createSimpleSuspense(
+const welcomeDelay = createSimpleSuspense(
   new Promise((resolve) => setTimeout(resolve, 1000))
 );
 
-function DelayedIdle() {
-  idleDelay.read();
-  return <div>Idle</div>;
+function DelayedWelcome() {
+  welcomeDelay.read();
+  return <div>Welcome</div>;
 }
