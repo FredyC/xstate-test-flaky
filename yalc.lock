@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-scripts": {
+      "signature": "ab9e9ffb617ed158ff28272247003d22",
+      "file": true,
+      "replaced": "3.4.1"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "React example starter project",
+  "keywords": [
+    "react",
+    "starter"
+  ],
+  "main": "src/index.js",
+  "dependencies": {
+    "@testing-library/jest-dom": "5.8.0",
+    "@testing-library/react": "10.0.4",
+    "@xstate/react": "^1.0.0-rc.4",
+    "@xstate/test": "0.4.0",
+    "jest-environment-jsdom-fourteen": "^1.0.1",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-scripts": "file:.yalc/react-scripts",
+    "xstate": "4.10.0",
+    "typescript": "3.9.x"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom-fourteen",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
